@@ -1,20 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-  
-          http://www.apache.org/licenses/LICENSE-2.0
-  
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-
+<!-- res/values/strings.xml -->
 <resources>
+    <!-- 原有字符串 -->
     <string name="app_name">NotePad</string>
     <string name="live_folder_name">Notes</string>
 
@@ -30,6 +16,8 @@
     <string name="menu_revert">Revert changes</string>
     <string name="menu_copy">Copy</string>
     <string name="menu_paste">Paste</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_preferences">Preferences</string>
 
     <string name="button_ok">OK</string>
     <string name="text_title">Title:</string>
@@ -40,4 +28,52 @@
     <string name="error_title">Error</string>
     <string name="error_message">Error loading note</string>
     <string name="nothing_to_save">There is nothing to save</string>
+    
+    <!-- 添加偏好设置相关字符串 -->
+    <string name="title_preferences">Preferences</string>
+    
+    <!-- 主题模式选项 -->
+    <string-array name="theme_mode_entries">
+        <item>浅色模式</item>
+        <item>深色模式</item>
+        <item>夜间模式</item>
+        <item>跟随系统</item>
+    </string-array>
+    
+    <string-array name="theme_mode_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>night</item>
+        <item>system</item>
+    </string-array>
+    
+    <!-- 字体大小选项 -->
+    <string-array name="font_size_entries">
+        <item>小</item>
+        <item>中</item>
+        <item>大</item>
+        <item>超大</item>
+    </string-array>
+    
+    <string-array name="font_size_values">
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+        <item>extra_large</item>
+    </string-array>
+    
+    <!-- 排序方式选项 -->
+    <string-array name="sort_order_entries">
+        <item>按修改时间降序</item>
+        <item>按修改时间升序</item>
+        <item>按标题升序</item>
+        <item>按标题降序</item>
+    </string-array>
+    
+    <string-array name="sort_order_values">
+        <item>modified_desc</item>
+        <item>modified_asc</item>
+        <item>title_asc</item>
+        <item>title_desc</item>
+    </string-array>
 </resources>

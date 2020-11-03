@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory android:title="显示设置">
+        <CheckBoxPreference
+            android:key="pref_key_show_timestamp"
+            android:title="显示时间戳"
+            android:summary="在笔记列表中显示创建/修改时间"
+            android:defaultValue="true" />
+            
+        <ListPreference
+            android:key="pref_key_sort_order"
+            android:title="排序方式"
+            android:summary="选择笔记列表的排序方式"
+            android:entries="@array/sort_order_entries"
+            android:entryValues="@array/sort_order_values"
+            android:defaultValue="modified_desc"
+            android:dialogTitle="选择排序方式" />
+            
+        <SeekBarPreference
+            android:key="pref_key_screen_brightness"
+            android:title="屏幕亮度"
+            android:summary="调整屏幕亮度"
+            android:max="100"
+            android:defaultValue="50" />
+            
+        <ListPreference
+            android:key="pref_key_theme_mode"
+            android:title="主题模式"
+            android:summary="选择应用主题模式"
+            android:entries="@array/theme_mode_entries"
+            android:entryValues="@array/theme_mode_values"
+            android:defaultValue="light"
+            android:dialogTitle="选择主题模式" />
+            
+        <Preference
+            android:key="pref_key_custom_color"
+            android:title="自定义主题色彩"
+            android:summary="选择主题主色调"
+            android:defaultValue="#2196F3" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="字体设置">
+        <ListPreference
+            android:key="pref_key_font_size"
+            android:title="字体大小"
+            android:summary="调整应用字体大小"
+            android:entries="@array/font_size_entries"
+            android:entryValues="@array/font_size_values"
+            android:defaultValue="medium"
+            android:dialogTitle="选择字体大小" />
+            
+        <CheckBoxPreference
+            android:key="pref_key_font_bold"
+            android:title="粗体字体"
+            android:summary="使用粗体字体显示内容"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="编辑设置">
+        <CheckBoxPreference
+            android:key="pref_key_auto_save"
+            android:title="自动保存"
+            android:summary="编辑笔记时自动保存更改"
+            android:defaultValue="false" />
+            
+        <EditTextPreference
+            android:key="pref_key_default_title"
+            android:title="默认标题"
+            android:summary="新笔记的默认标题"
+            android:defaultValue="未命名笔记" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="其他设置">
+        <CheckBoxPreference
+            android:key="pref_key_confirm_delete"
+            android:title="删除前确认"
+            android:summary="删除笔记前显示确认对话框"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+    
+</PreferenceScreen>
