@@ -39,6 +39,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.Random;
 
 /**
  * This Activity handles "editing" a note, where editing is responding to
@@ -55,15 +62,50 @@ public class NoteEditor extends Activity {
     // For logging and debugging purposes
     private static final String TAG = "NoteEditor";
 
+    private Spinner mCategorySpinner;
+    private Button mManageCategoriesBtn;
+    private ArrayAdapter<String> mCategoryAdapter;
+    private String mCurrentCategory = "";
+
+    // 添加颜色选择器相关变量
+    private Spinner mColorSpinner;
+    private ArrayAdapter<String> mColorAdapter;
+    private int mCurrentColor = -1; // 默认无颜色
+
+    // 定义颜色选项
+    private static final int[] COLOR_OPTIONS = {
+            -1, // 无颜色
+            0xFFFFCDD2, // 红色
+            0xFFE1BEE7, // 紫色
+            0xFFBBDEFB, // 蓝色
+            0xFFC8E6C9, // 绿色
+            0xFFFFF9C4, // 黄色
+            0xFFFFCCBC, // 橙色
+            0xFFD7CCC8  // 棕色
+    };
+
+    private static final String[] COLOR_NAMES = {
+            "无颜色",
+            "红色",
+            "紫色",
+            "蓝色",
+            "绿色",
+            "黄色",
+            "橙色",
+            "棕色"
+    };
+
     /*
      * Creates a projection that returns the note ID and the note contents.
      */
     private static final String[] PROJECTION =
-        new String[] {
-            NotePad.Notes._ID,
-            NotePad.Notes.COLUMN_NAME_TITLE,
-            NotePad.Notes.COLUMN_NAME_NOTE
-    };
+            new String[] {
+                    NotePad.Notes._ID,
+                    NotePad.Notes.COLUMN_NAME_TITLE,
+                    NotePad.Notes.COLUMN_NAME_NOTE,
+                    NotePad.Notes.COLUMN_NAME_CATEGORY,
+                    NotePad.Notes.COLUMN_NAME_COLOR  // 添加颜色列
+            };
 
     // A label for the saved state of the activity
     private static final String ORIGINAL_CONTENT = "origContent";
@@ -189,7 +231,7 @@ public class NoteEditor extends Activity {
             // set the result to be returned.
             setResult(RESULT_OK, (new Intent()).setAction(mUri.toString()));
 
-        // If the action was other than EDIT or INSERT:
+            // If the action was other than EDIT or INSERT:
         } else {
 
             // Logs an error that the action was not understood, finishes the Activity, and
@@ -208,11 +250,11 @@ public class NoteEditor extends Activity {
          * android.content.AsyncQueryHandler or android.os.AsyncTask.
          */
         mCursor = managedQuery(
-            mUri,         // The URI that gets multiple notes from the provider.
-            PROJECTION,   // A projection that returns the note ID and note content for each note.
-            null,         // No "where" clause selection criteria.
-            null,         // No "where" clause selection values.
-            null          // Use the default sort order (modification date, descending)
+                mUri,         // The URI that gets multiple notes from the provider.
+                PROJECTION,   // A projection that returns the note ID and note content for each note.
+                null,         // No "where" clause selection criteria.
+                null,         // No "where" clause selection values.
+                null          // Use the default sort order (modification date, descending)
         );
 
         // For a paste, initializes the data from clipboard.
@@ -274,7 +316,7 @@ public class NoteEditor extends Activity {
                 Resources res = getResources();
                 String text = String.format(res.getString(R.string.title_edit), title);
                 setTitle(text);
-            // Sets the title to "create" for inserts
+                // Sets the title to "create" for inserts
             } else if (mState == STATE_INSERT) {
                 setTitle(getText(R.string.title_create));
             }
@@ -297,10 +339,16 @@ public class NoteEditor extends Activity {
                 mOriginalContent = note;
             }
 
-        /*
-         * Something is wrong. The Cursor should always contain data. Report an error in the
-         * note.
-         */
+            // 初始化分类选择器
+            initCategorySpinner();
+
+            // 初始化颜色选择器
+            initColorSpinner();
+
+            /*
+             * Something is wrong. The Cursor should always contain data. Report an error in the
+             * note.
+             */
         } else {
             setTitle(getText(R.string.error_title));
             mText.setText(getText(R.string.error_message));
@@ -372,7 +420,7 @@ public class NoteEditor extends Activity {
             } else if (mState == STATE_INSERT) {
                 updateNote(text, text);
                 mState = STATE_EDIT;
-          }
+            }
         }
     }
 
@@ -392,7 +440,7 @@ public class NoteEditor extends Activity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.editor_options_menu, menu);
 
-        // Only add extra menu items for a saved note 
+        // Only add extra menu items for a saved note
         if (mState == STATE_EDIT) {
             // Append to the
             // menu items for any other activities that can do stuff with it
@@ -531,14 +579,14 @@ public class NoteEditor extends Activity {
 
             // If no title was provided as an argument, create one from the note text.
             if (title == null) {
-  
+
                 // Get the note's length
                 int length = text.length();
 
                 // Sets the title by getting a substring of the text that is 31 characters long
                 // or the number of characters in the note plus one, whichever is smaller.
                 title = text.substring(0, Math.min(30, length));
-  
+
                 // If the resulting length is more than 30 characters, chops off any
                 // trailing spaces
                 if (length > 30) {
@@ -558,6 +606,12 @@ public class NoteEditor extends Activity {
         // This puts the desired notes text into the map.
         values.put(NotePad.Notes.COLUMN_NAME_NOTE, text);
 
+        // 添加分类信息
+        values.put(NotePad.Notes.COLUMN_NAME_CATEGORY, mCurrentCategory);
+
+        // 添加颜色信息
+        values.put(NotePad.Notes.COLUMN_NAME_COLOR, mCurrentColor);
+
         /*
          * Updates the provider with the new values in the map. The ListView is updated
          * automatically. The provider sets this up by setting the notification URI for
@@ -574,7 +628,7 @@ public class NoteEditor extends Activity {
                 values,  // The map of column names and new values to apply to them.
                 null,    // No selection criteria are used, so no where columns are necessary.
                 null     // No where columns are used, so no where arguments are necessary.
-            );
+        );
 
 
     }
@@ -610,6 +664,123 @@ public class NoteEditor extends Activity {
             mCursor = null;
             getContentResolver().delete(mUri, null, null);
             mText.setText("");
+        }
+    }
+
+    // 添加分类初始化方法
+    private void initCategorySpinner() {
+        mCategorySpinner = (Spinner) findViewById(R.id.category_spinner);
+        mManageCategoriesBtn = (Button) findViewById(R.id.manage_categories_btn);
+
+        // 获取所有现有分类
+        loadCategories();
+
+        mCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mCurrentCategory = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mCurrentCategory = "";
+            }
+        });
+
+        mManageCategoriesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 启动分类管理Activity
+                // startActivity(new Intent(NoteEditor.this, CategoryManagerActivity.class));
+            }
+        });
+
+        // 如果是编辑现有笔记，设置当前分类
+        if (mCursor != null && mCursor.moveToFirst()) {
+            int categoryColumnIndex = mCursor.getColumnIndex(NotePad.Notes.COLUMN_NAME_CATEGORY);
+            if (categoryColumnIndex != -1) {
+                String category = mCursor.getString(categoryColumnIndex);
+                if (category != null) {
+                    int spinnerPosition = mCategoryAdapter.getPosition(category);
+                    if (spinnerPosition != -1) {
+                        mCategorySpinner.setSelection(spinnerPosition);
+                        mCurrentCategory = category;
+                    }
+                }
+            }
+        }
+    }
+
+    // 加载分类列表
+    private void loadCategories() {
+        // 查询所有不同的分类
+        Cursor categoryCursor = managedQuery(
+                NotePad.Notes.CONTENT_URI,
+                new String[]{NotePad.Notes.COLUMN_NAME_CATEGORY},
+                NotePad.Notes.COLUMN_NAME_CATEGORY + " IS NOT NULL AND " + NotePad.Notes.COLUMN_NAME_CATEGORY + " != ''",
+                null,
+                NotePad.Notes.COLUMN_NAME_CATEGORY + " ASC"
+        );
+
+        // 创建分类列表
+        java.util.List<String> categories = new java.util.ArrayList<String>();
+        categories.add(""); // 无分类选项
+        categories.add("工作");
+        categories.add("个人");
+        categories.add("学习");
+
+        // 从数据库中添加现有分类
+        if (categoryCursor != null) {
+            while (categoryCursor.moveToNext()) {
+                String category = categoryCursor.getString(0);
+                if (!categories.contains(category)) {
+                    categories.add(category);
+                }
+            }
+        }
+
+        // 创建适配器
+        mCategoryAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, categories);
+        mCategoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mCategorySpinner.setAdapter(mCategoryAdapter);
+    }
+
+    // 添加颜色选择器初始化方法
+    private void initColorSpinner() {
+        mColorSpinner = (Spinner) findViewById(R.id.color_spinner);
+
+        // 创建颜色适配器
+        mColorAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, COLOR_NAMES);
+        mColorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mColorSpinner.setAdapter(mColorAdapter);
+
+        mColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mCurrentColor = COLOR_OPTIONS[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                mCurrentColor = -1;
+            }
+        });
+
+        // 如果是编辑现有笔记，设置当前颜色
+        if (mCursor != null && mCursor.moveToFirst()) {
+            int colorColumnIndex = mCursor.getColumnIndex(NotePad.Notes.COLUMN_NAME_COLOR);
+            if (colorColumnIndex != -1) {
+                int color = mCursor.getInt(colorColumnIndex);
+                for (int i = 0; i < COLOR_OPTIONS.length; i++) {
+                    if (COLOR_OPTIONS[i] == color) {
+                        mColorSpinner.setSelection(i);
+                        mCurrentColor = color;
+                        break;
+                    }
+                }
+            }
         }
     }
 }
