@@ -1,2 +1,36 @@
-# NotePad
-This is an AndroidStudio rebuild of google SDK sample NotePad
+1. 笔记时间戳显示
+在 NoteList 界面的每条笔记条目旁，添加了精确的时间戳信息。
+时间戳格式统一，清晰展示笔记的创建或最后编辑时间，方便用户快速追溯笔记历史。
+<img width="403" height="195" alt="屏幕截图 2025-11-18 135544" src="https://github.com/user-attachments/assets/9b8be071-fb31-4f87-809b-9ab7c06169f1" />
+
+3. 笔记查询功能
+支持根据笔记标题或内容进行关键词查询，满足用户快速定位目标笔记的需求。
+查询逻辑高效，输入关键词后即时匹配结果，提升笔记检索效率。
+<img width="323" height="163" alt="屏幕截图 2025-11-18 135552" src="https://github.com/user-attachments/assets/49274d67-6854-4e29-80a3-b51dcae28747" />
+
+扩展功能实现
+1. 偏好设置功能
+提供个性化设置选项，用户可根据自身习惯配置应用参数。
+支持对字体大小、显示密度等基础使用偏好进行自定义调整。
+2. UI 美化优化
+新增主题切换功能，提供多种风格主题供用户选择。
+优化记事本背景样式，支持自定义背景或选择预设背景模板。
+升级编辑器界面，优化按钮布局与视觉反馈，提升操作流畅度。
+扩展功能集成到偏好设置中
+<img width="405" height="709" alt="屏幕截图 2025-11-18 135600" src="https://github.com/user-attachments/assets/327581c8-d73d-41d6-823c-827e10ebc55e" />
+
+开发依赖与参考资料
+1. 源码与参考应用
+基础源码：NotePad 开源源码
+源码分析参考：NotePad 源码解析博客
+功能参考应用：彩色笔记、印象笔记、有道笔记
+2. 技术文档参考
+数据存储基础：Android 数据存储指南
+SQLite 数据库使用：Android SQLite 数据存储培训
+ContentProvider 基础：Android ContentProvider 指南
+Room 数据库技术：Android Room 数据存储培训
+安装与使用
+克隆或下载扩展后的项目源码到本地。
+使用 Android Studio 打开项目，配置对应 SDK 版本（推荐 API 23 及以上）。
+编译并运行项目，可在模拟器或实体设备上体验完整功能。
+首次启动后，可通过 “设置” 入口配置偏好选项，通过搜索框使用查询功能。
