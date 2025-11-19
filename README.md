@@ -2,6 +2,9 @@
 在 NoteList 界面的每条笔记条目旁，添加了精确的时间戳信息。
 时间戳格式统一，清晰展示笔记的创建或最后编辑时间，方便用户快速追溯笔记历史。
 <img width="403" height="195" alt="屏幕截图 2025-11-18 135544" src="https://github.com/user-attachments/assets/9b8be071-fb31-4f87-809b-9ab7c06169f1" />
+
+
+
 相关的笔记编辑页面，自动保存和中英文切换输入
 <img width="372" height="745" alt="屏幕截图 2025-11-19 110101" src="https://github.com/user-attachments/assets/2a6be4b1-f8a2-4f6c-9b96-9d347d5675a2" />
 
