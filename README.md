@@ -2,11 +2,14 @@
 在 NoteList 界面的每条笔记条目旁，添加了精确的时间戳信息。
 时间戳格式统一，清晰展示笔记的创建或最后编辑时间，方便用户快速追溯笔记历史。
 <img width="403" height="195" alt="屏幕截图 2025-11-18 135544" src="https://github.com/user-attachments/assets/9b8be071-fb31-4f87-809b-9ab7c06169f1" />
+相关的笔记编辑页面，自动保存和中英文切换输入
+<img width="372" height="745" alt="屏幕截图 2025-11-19 110101" src="https://github.com/user-attachments/assets/2a6be4b1-f8a2-4f6c-9b96-9d347d5675a2" />
 
 3. 笔记查询功能
 支持根据笔记标题或内容进行关键词查询，满足用户快速定位目标笔记的需求。
 查询逻辑高效，输入关键词后即时匹配结果，提升笔记检索效率。
 <img width="323" height="163" alt="屏幕截图 2025-11-18 135552" src="https://github.com/user-attachments/assets/49274d67-6854-4e29-80a3-b51dcae28747" />
+<img width="370" height="672" alt="屏幕截图 2025-11-19 110118" src="https://github.com/user-attachments/assets/163ae013-741a-427c-8a56-ab8f97b1729e" />
 
 扩展功能实现
 1. 偏好设置功能
@@ -16,8 +19,11 @@
 新增主题切换功能，提供多种风格主题供用户选择。
 优化记事本背景样式，支持自定义背景或选择预设背景模板。
 升级编辑器界面，优化按钮布局与视觉反馈，提升操作流畅度。
-扩展功能集成到偏好设置中
+扩展功能集成到偏好设置中，自定义主题，字体的大小，笔记的个性化排序，屏幕亮度的滑动调节
 <img width="405" height="709" alt="屏幕截图 2025-11-18 135600" src="https://github.com/user-attachments/assets/327581c8-d73d-41d6-823c-827e10ebc55e" />
+<img width="325" height="266" alt="屏幕截图 2025-11-19 110144" src="https://github.com/user-attachments/assets/48c32b60-a95b-4c5a-87d4-d4e811d378c5" />
+<img width="320" height="280" alt="屏幕截图 2025-11-19 110155" src="https://github.com/user-attachments/assets/82b5265d-3320-45c8-a57e-96521f1e487c" />
+
 
 开发依赖与参考资料
 1. 源码与参考应用
