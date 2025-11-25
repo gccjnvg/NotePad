@@ -21,6 +21,8 @@
 提供专门的标题编辑界面TitleEditor，以对话框形式呈现（在 Manifest 中配置为Theme.Holo.Dialog）
 
 相关的笔记编辑页面，自动保存和中英文切换输入，效果如下：
+
+
 <img width="196" height="334" alt="3cfb206e286f62e8c6c4b89d40a1420" src="https://github.com/user-attachments/assets/2b75a267-6470-4692-a147-fc7785e8b10a" />
 <img width="189" height="334" alt="54cf617759d247b929398f170bd749f" src="https://github.com/user-attachments/assets/be82c8f8-27db-493b-b89d-b2d5281d17d1" />
 <img width="195" height="333" alt="bffd547ef528a5ca73fe4dd20e9bef5" src="https://github.com/user-attachments/assets/df02a802-9bf2-4ecd-b7f1-7868f4136cc7" />
@@ -32,6 +34,8 @@
 可根据笔记标题和内容进行搜索（基于NotePadProvider中的投影映射和查询构建器）
 支持通过 URI 模式匹配实现精确查询，包括单条笔记查询（notes/#形式的 URI）
 搜索结果以Cursor形式返回，可高效处理大量笔记数据，效果如下：
+
+
 <img width="323" height="163" alt="屏幕截图 2025-11-18 135552" src="https://github.com/user-attachments/assets/49274d67-6854-4e29-80a3-b51dcae28747" />
 <img width="370" height="672" alt="屏幕截图 2025-11-19 110118" src="https://github.com/user-attachments/assets/163ae013-741a-427c-8a56-ab8f97b1729e" />
 
@@ -51,6 +55,8 @@
 整体界面遵循 Holo 主题风格，保持视觉一致性
 编辑界面的软键盘行为优化（windowSoftInputMode="stateVisible"）
 扩展功能集成到偏好设置中，自定义主题，字体的大小，笔记的个性化排序，屏幕亮度的滑动调节，效果如下：
+
+
 <img width="405" height="709" alt="屏幕截图 2025-11-18 135600" src="https://github.com/user-attachments/assets/327581c8-d73d-41d6-823c-827e10ebc55e" />
 <img width="325" height="266" alt="屏幕截图 2025-11-19 110144" src="https://github.com/user-attachments/assets/48c32b60-a95b-4c5a-87d4-d4e811d378c5" />
 <img width="320" height="280" alt="屏幕截图 2025-11-19 110155" src="https://github.com/user-attachments/assets/82b5265d-3320-45c8-a57e-96521f1e487c" />
