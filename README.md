@@ -6,6 +6,11 @@ Notepad 应用功能增强说明
 修改 NotePadProvider 在插入和更新笔记时自动维护这两个时间戳字段
 使用 System.currentTimeMillis() 记录毫秒级时间戳，便于排序和精确时间追踪
 
+
+<img width="373" height="759" alt="屏幕截图 2025-12-02 143223" src="https://github.com/user-attachments/assets/6f529e2d-aba6-46c0-b3e4-113911f42a0c" />
+
+
+
 关键源码实现：
 NotePad.java
 ```
@@ -93,6 +98,12 @@ adapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
 实现 onSearchRequested() 方法触发搜索
 重写 onNewIntent() 处理搜索请求
 使用 SQLite 的 LIKE 操作符执行模糊搜索
+
+
+<img width="391" height="753" alt="屏幕截图 2025-12-02 143259" src="https://github.com/user-attachments/assets/67fa8e52-2100-4d66-b9d6-217239221ebd" />
+
+
+
 关键源码实现
 list_options_menu.xml
 ```
@@ -164,6 +175,13 @@ private void performSearch(String query) {
 重新设计了笔记列表项布局，采用更现代的卡片式设计
 使用更合适的字体大小和颜色搭配
 优化整体视觉层次和可读性
+
+
+<img width="391" height="753" alt="屏幕截图 2025-12-02 143259" src="https://github.com/user-attachments/assets/10e28aae-3ad4-4f5b-b65b-d25359ea8e66" />
+
+<img width="375" height="755" alt="屏幕截图 2025-12-02 143308" src="https://github.com/user-attachments/assets/aca6dc72-3a0a-4665-a348-33835c2ae3f2" />
+
+
 关键源码实现
 noteslist_item.xml
 ```
@@ -201,6 +219,12 @@ noteslist_item.xml
 在设置中添加背景颜色选项
 使用 SharedPreferences 存储用户偏好设置
 在 Activity.onResume() 中动态应用背景色
+
+<img width="387" height="771" alt="屏幕截图 2025-12-02 143248" src="https://github.com/user-attachments/assets/ecc260ef-eb13-4a28-b677-3d80c7da225e" />
+
+<img width="375" height="755" alt="屏幕截图 2025-12-02 143308" src="https://github.com/user-attachments/assets/a0d3eb5b-4d5d-480d-a796-4fddd3a25fce" />
+
+
 关键源码实现
 NoteEditor.java
 ```
@@ -243,6 +267,11 @@ private void showBackgroundColorPicker() {
 在数据库中添加分类字段
 提供分类管理界面
 支持按分类筛选笔记
+
+
+<img width="366" height="757" alt="屏幕截图 2025-12-02 143241" src="https://github.com/user-attachments/assets/d078172c-63d0-4081-b2e7-950daf5aa349" />
+
+
 关键源码实现
 NotePad.java
 ```
@@ -267,6 +296,14 @@ private static final String DATABASE_CREATE =
 为每条笔记添加颜色属性字段
 在编辑界面提供颜色选择器
 显示时根据颜色属性设置背景
+
+
+
+<img width="369" height="745" alt="屏幕截图 2025-12-02 143231" src="https://github.com/user-attachments/assets/09bc3aac-c2f5-4fad-b733-94881cd4ec45" />
+<img width="387" height="771" alt="屏幕截图 2025-12-02 143248" src="https://github.com/user-attachments/assets/40cf5dee-8fc5-4fce-a42c-e387ca26e4c9" />
+
+
+
 关键源码实现
 NotePad.java
 ```
